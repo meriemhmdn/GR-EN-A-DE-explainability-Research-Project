@@ -209,6 +209,26 @@ python train.py --grenade-exp-nb 1 --arch gcn --explainer pgmexplainer --epochs 
 | **Input** | • Edge importance scores<br>• Original text content<br>• Metadata (In-Group/Out-group) |
 | **Process** | • Join edge scores with text<br>• Rank by importance<br>• Generate reports |
 | **Output** | • `top_100_edges_with_context.csv`<br>• `edge_analysis_full_report.txt` |
+
+### **Stage 4: Narrative Explanation Generation**
+> **LLM-based Human-Readable Explanations (GraphXAIN + DeepSeek)**
+
+| Component | Details |
+|-----------|---------|
+| **Input** | • `top_100_edges_with_context.csv`<br>• Edge importance scores<br>• Source & target messages<br>• Narrative attributes (labels, in-group/out-group) |
+| **Process** | • Construct structured prompts for each important edge<br>• Query a locally deployed LLM (DeepSeek)<br>• Generate natural language explanations for each connection<br>• Interpret why the GNN considers the edge important |
+| **Model** | • Local LLM: DeepSeek (via Ollama API)<br>• Endpoint: `http://localhost:11434/api/generate` |
+| **Output** | • `narrative_explanations.csv` (with `graphxain_explanation` column) |
+
+---
+
+This stage bridges the gap between **graph-based explainability** and **human-understandable narratives** by transforming structural signals (important edges) into coherent textual justifications.
+
+Unlike traditional explainability methods, this approach provides **context-aware explanations**, incorporating:
+- semantic relationships between messages  
+- narrative dynamics (agreement, hostility, moral framing)  
+- in-group vs out-group language signals
+  
 ## Citation
 
 ```bibtex
@@ -218,6 +238,15 @@ python train.py --grenade-exp-nb 1 --arch gcn --explainer pgmexplainer --epochs 
   author={Longa, Antonio and Azzolin, Steve and Santin, Gabriele and Lió, Pietro and Lepri, Bruno and Passerini, Andrea},
   journal={Learning on Graphs Conference (LoG)},
   year={2022}
+}
+```
+```bibtex
+@article{graphxain2025,
+  title={GraphXAIN: Narratives to Explain Graph Neural Networks},
+  author={Cedro, Mateusz and Martens, David},
+  journal={arXiv preprint arXiv:2411.02540},
+  year={2025},
+  url={https://arxiv.org/abs/2411.02540}
 }
 ```
 
