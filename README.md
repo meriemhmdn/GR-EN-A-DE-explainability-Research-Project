@@ -251,26 +251,4 @@ Unlike traditional explainability methods, this approach provides **context-awar
 ```
 
 =======
-### **Stage 4: Narrative Explanation Generation**
-> **LLM-based Human-Readable Explanations (GraphXAIN + DeepSeek)**
 
-| Component | Details |
-|-----------|---------|
-| **Input** | • `top_100_edges_with_context.csv`<br>• Edge importance scores<br>• Source & target messages<br>• Narrative attributes (labels, in-group/out-group) |
-| **Process** | • Construct structured prompts for each important edge<br>• Query a locally deployed LLM (DeepSeek)<br>• Generate natural language explanations for each connection<br>• Interpret why the GNN considers the edge important |
-| **Model** | • Local LLM: DeepSeek (via Ollama API)<br>• Endpoint: `http://localhost:11434/api/generate` |
-| **Output** | • `narrative_explanations.csv` (with `graphxain_explanation` column) |
-
----
-
-This stage bridges the gap between **graph-based explainability** and **human-understandable narratives** by transforming structural signals (important edges) into coherent textual justifications.
-
-Unlike traditional explainability methods, this approach provides **context-aware explanations**, incorporating:
-- semantic relationships between messages  
-- narrative dynamics (agreement, hostility, moral framing)  
-- in-group vs out-group language signals  
-
-The use of a **locally deployed LLM (DeepSeek)** ensures:
-- full control over data (no external API calls)  
-- reproducibility  
-- cost-free large-scale explanation generation  
