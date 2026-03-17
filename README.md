@@ -101,7 +101,15 @@ python save_analysis_report.py
 ```
 Creates: `analysis_results/edge_analysis_full_report.txt` and `analysis_results/top_100_edges_with_context.csv`
 
+### 7. Natural Language explainability
+```bash
+# run the scripte for usin Deepseek with the scores of EXPASS
+python python generate_explanation_narrative.py
 
+# visualize an example
+python python show_exp.py --index 6
+```
+Creates: `analysis_results/narrative_explanations.csv` 
 
 ## Different Datasets
 
@@ -214,14 +222,26 @@ python train.py --grenade-exp-nb 1 --arch gcn --explainer pgmexplainer --epochs 
 ```
 
 =======
-### **Stage 4: Natural Language explainability** 
-> **Human-Readable Interpretations (more advanced)**
-```bash
-# run the scripte for usin Deepseek with the scores of EXPASS
-python python generate_explanation_narrative.py
+### **Stage 4: Narrative Explanation Generation**
+> **LLM-based Human-Readable Explanations (GraphXAIN + DeepSeek)**
 
-# visualize an example
-python python show_exp.py --index 6
+| Component | Details |
+|-----------|---------|
+| **Input** | • `top_100_edges_with_context.csv`<br>• Edge importance scores<br>• Source & target messages<br>• Narrative attributes (labels, in-group/out-group) |
+| **Process** | • Construct structured prompts for each important edge<br>• Query a locally deployed LLM (DeepSeek)<br>• Generate natural language explanations for each connection<br>• Interpret why the GNN considers the edge important |
+| **Model** | • Local LLM: DeepSeek (via Ollama API)<br>• Endpoint: `http://localhost:11434/api/generate` |
+| **Output** | • `narrative_explanations.csv` (with `graphxain_explanation` column) |
 
+---
 
-```
+This stage bridges the gap between **graph-based explainability** and **human-understandable narratives** by transforming structural signals (important edges) into coherent textual justifications.
+
+Unlike traditional explainability methods, this approach provides **context-aware explanations**, incorporating:
+- semantic relationships between messages  
+- narrative dynamics (agreement, hostility, moral framing)  
+- in-group vs out-group language signals  
+
+The use of a **locally deployed LLM (DeepSeek)** ensures:
+- full control over data (no external API calls)  
+- reproducibility  
+- cost-free large-scale explanation generation  
