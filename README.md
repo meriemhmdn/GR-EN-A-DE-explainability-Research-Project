@@ -1,4 +1,23 @@
-<<<<<<< HEAD
+This project proposes an explainable pipeline for detecting and interpreting extremist narratives in text data by combining graph-based learning and natural language explanation generation.
+
+The pipeline integrates three main components:
+
+1. GR-EN-A-DE: A graph construction framework that models relationships between textual messages.
+2. EXPASS: An explainable graph neural network (GNN) approach used to classify nodes and identify important connections within the graph.
+3. GraphXAIN: A narrative explanation module that transforms structural explanations (e.g., important edges) into human-readable justifications.
+
+To enhance accessibility and reproducibility, we use a locally deployed large language model (DeepSeek) to generate natural language explanations, avoiding reliance on external APIs.
+
+The system operates in the following stages:
+- Graph construction from multilingual textual data
+- Semi-supervised node classification using GNNs
+- Extraction of important edges contributing to predictions
+- Generation of narrative explanations for these edges
+
+The goal of this work is to bridge the gap between graph-based explainability methods and human-understandable interpretations, particularly in sensitive contexts such as extremist content detection.
+
+Current work focuses on establishing a robust explainability pipeline. Future improvements include integrating linguistic features directly into the learning phase to enhance both performance and interpretability.
+
 # GRENADE-EXPASS Pipeline
 
 > Interpretable Graph Learning for Text Analysis
@@ -194,10 +213,15 @@ python train.py --grenade-exp-nb 1 --arch gcn --explainer pgmexplainer --epochs 
 }
 ```
 
-## License
-
-MIT License - see repository for details
 =======
-# GR-EN-A-DE-explainability-Research-Project
-This project proposes an explainable pipeline for detecting and interpreting extremist narratives in text data by combining graph-based learning and natural language explanation generation.
->>>>>>> d9c49e8bafb57cb0ba2e47a22040ae11f6f82ab9
+### **Stage 4: Natural Language explainability** 
+> **Human-Readable Interpretations (more advanced)**
+```bash
+# run the scripte for usin Deepseek with the scores of EXPASS
+python python generate_explanation_narrative.py
+
+# visualize an example
+python python show_exp.py --index 6
+
+
+```
