@@ -104,10 +104,10 @@ Creates: `analysis_results/edge_analysis_full_report.txt` and `analysis_results/
 ### 7. Natural Language explainability
 ```bash
 # run the scripte for usin Deepseek with the scores of EXPASS
-python python generate_explanation_narrative.py
+python generate_explanation_narrative.py
 
 # visualize an example
-python python show_exp.py --index 6
+python show_exp.py --index 6
 ```
 Creates: `analysis_results/narrative_explanations.csv` 
 
